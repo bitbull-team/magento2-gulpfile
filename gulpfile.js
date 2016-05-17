@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-    less = require('gulp-less'),
     gutil = require('gulp-util'),
     chalk = require('chalk'),
     less  = require('gulp-less-sourcemap'),
