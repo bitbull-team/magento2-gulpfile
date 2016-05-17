@@ -6,7 +6,7 @@ Why?
 ----
 
 This project is originated from the need to make faster the frontend workflow of Magento 2.
-More info here: link all'articolo
+More info here: http://www.bitbull.it/blog/la-compilazione-del-less-in-magento2/
 
 Usage
 -----
