@@ -22,10 +22,10 @@ Usage
         npm install gulp-clean
         npm install gulp-run
 
-3. Create a create a configuration file **dev/tools/gulp/themes.js** with the following contents.
+3. Create a configuration file **dev/tools/gulp/themes.js** with the following contents.
 
         module.exports = {
-        piazzaitalia: {
+        <Theme>: {
           "src": [
             "vendor/<Vendor>/<Theme-name>",
             "vendor/<Vendor>/<Module-name>"
