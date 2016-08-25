@@ -11,20 +11,72 @@ More info here: http://www.bitbull.it/blog/la-compilazione-del-less-in-magento2/
 Usage
 -----
 
-Simply place the gulpfile.js in the root of your project and install the required modules
+1. Place the gulpfile.js in the root of your project.
 
-Facts
------
-- version: 1.0.0
-- [extension on GitHub](https://github.com/bitbull-team/magento-catalog-autolistmode)
+2. Install the following required modules:
+
+        npm install gulp
+        npm install gulp-less
+        npm install gulp-util
+        npm install chalk
+        npm install gulp-clean
+        npm install gulp-run
+
+3. Create a create a configuration file **dev/tools/gulp/themes.js** with the following contents.
+
+        module.exports = {
+        piazzaitalia: {
+          "src": [
+            "vendor/<Vendor>/<Theme-name>",
+            "vendor/<Vendor>/<Module-name>"
+            ],
+          "dest": "pub/static/frontend/<Vendor>/<Theme-name>",
+          "locale": [locale],
+          "lang": "less",
+          "area": "frontend",
+          "vendor": <Vendor>,
+          "name": <Theme-name>,
+          "files": [
+            "css/styles-m",
+            "css/styles-l"
+           ]
+         }
+        };
+        
+
+
+src:  Array of theme and modules you want to compile in format "vendor/<Vendor>/<Module-name>"
+dest: Path in pub/static of your theme
+area: area, one of (frontend|adminhtml|doc),
+name: theme name in format theme-name,
+locale: locale,
+files: Files to compile
+
+
+Commands
+--------
+ 
+1. Task watch.       
+        
+        gulp watch --Theme-name
+        
+1. Task clean and build.       
+        
+        gulp build --Theme-name
+
 
 Nice to have
 ------------
 - Update Magento2 **packege.json** with the required modules
+- Compile different languages
 
 Licence
 -------
 [OSL - Open Software Licence 3.0](http://opensource.org/licenses/osl-3.0.php)
+
+Developer
+---------
+Irene Iaccio(@nuovecode) http://www.bitbull.it
 
 Copyright
 ---------
