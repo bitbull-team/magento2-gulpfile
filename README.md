@@ -46,10 +46,15 @@ Usage
 
 
 src:  Array of theme and modules you want to compile in format "vendor/<Vendor>/<Module-name>"
+
 dest: Path in pub/static of your theme
+
 area: area, one of (frontend|adminhtml|doc),
+
 name: theme name in format theme-name,
+
 locale: locale,
+
 files: Files to compile
 
 
