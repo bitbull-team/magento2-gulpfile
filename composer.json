@@ -1,0 +1,18 @@
+{
+  "name": "bitbull/magento2-tool-gulp",
+  "description": "Gulp tool for Magento2",
+  "license": "Open Software License (OSL)",
+  "authors": [
+    {
+      "name": "Irene Iaccio",
+      "email": "irene.iaccio@bitbull.it"
+    }
+  ],
+  "type": "magento2-tool",
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Bitbull\\GulpTool\\": ""
+    }
+  }
+}

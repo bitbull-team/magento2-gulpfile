@@ -2,8 +2,6 @@ var gulp  = require('gulp'),
     less  = require('gulp-less'),
     gutil = require('gulp-util'),
     chalk = require('chalk'),
-    clean = require('gulp-clean'),
-    run   = require('gulp-run'),
 
     themesConfig = require('./dev/tools/gulp/themes');
 
@@ -14,6 +12,8 @@ gulp.task('watch',
 
         var theme = themesConfig[options];
 
+        console.console.log(themesConfig[options]);
+
         theme.src.forEach(function(module) {
             gulp.watch([ module + '/**/*.less'], ['css']);
         });
@@ -22,7 +22,7 @@ gulp.task('watch',
 
 
 /**
- * Less Cmpile Task.
+ * Less Compile Task.
  */
 
 gulp.task('css', function() {

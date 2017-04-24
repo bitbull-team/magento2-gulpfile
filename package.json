@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "gulp": "~3",
+    "gulp-bless": "~1.0",
+    "gulp-less": "^1.3.2",
+    "gulp-util": "^3.0.8",
+    "chalk": "~1"
+  }
+}
