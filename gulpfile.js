@@ -59,7 +59,7 @@ gulp.task('css', function() {
 gulp.task('build', function() {
 
     var theme = themesConfig[options];
-    var cmd = ‘bin/magento dev:source-theme:deploy --theme ’ + theme.vendor + ‘/’+ theme.name + ’ --locale ' + theme.locale;
+    var cmd = 'bin/magento dev:source-theme:deploy --theme ' + theme.vendor + '/'+ theme.name + ' --locale ' + theme.locale;
     var folderToClean = [
         './pub/static/' + theme.area + '/' + theme.name + '/*',
         './var/view_preprocessed/*',
