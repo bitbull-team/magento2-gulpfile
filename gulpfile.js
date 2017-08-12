@@ -4,6 +4,8 @@ var gulp  = require('gulp'),
     chalk = require('chalk'),
     clean = require('gulp-clean'),
     run   = require('gulp-run'),
+    sourcemap = require('gulp-sourcemaps')
+
 
     themesConfig = require('./dev/tools/gulp/themes');
 
@@ -43,9 +45,11 @@ gulp.task('css', function() {
 
     return gulp
         .src(filesToCompile)
+        .pipe(sourcemap.init())
         .pipe(less().on('error', function (error) {
             gutil.log(chalk.red('Error compiling LESS: ' + error.message));
         }))
+        .pipe(sourcemap.write())
         .pipe(gulp.dest(cssDestination))
         .pipe(gutil.buffer(function() {
             gutil.log(chalk.green('Successfully compiled ' + theme.lang ));
