@@ -11,16 +11,15 @@ More info here: http://www.bitbull.it/blog/la-compilazione-del-less-in-magento2/
 Usage
 -----
 
-1. Place the gulpfile.js in the root of your project.
+1. Place the gulpfile.js and the package.json in the root of your project.
 
 2. Install the following required modules:
 
-        npm install gulp
-        npm install gulp-less
-        npm install gulp-util
-        npm install chalk
-        npm install gulp-clean
-        npm install gulp-run
+        npm install
+
+or
+
+        yarn install   
 
 3. Create a configuration file **dev/tools/gulp/themes.js** with the following contents.
 
