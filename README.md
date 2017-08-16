@@ -15,11 +15,8 @@ Usage
 
 2. Install the following required modules:
 
-        npm install
+        npm install /  yarn install  
 
-or
-
-        yarn install   
 
 3. Create a configuration file **dev/tools/gulp/themes.js** with the following contents.
 
