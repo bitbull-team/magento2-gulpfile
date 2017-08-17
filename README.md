@@ -13,7 +13,7 @@ Usage
 
 1. Place the gulpfile.js and the package.json in the root of your project.
 
-2. Install the following required modules:
+2. Install the required modules:
 
         npm install /  yarn install  
 
