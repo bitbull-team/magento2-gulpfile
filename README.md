@@ -74,6 +74,12 @@ Licence
 -------
 [OSL - Open Software Licence 3.0](http://opensource.org/licenses/osl-3.0.php)
 
+Changelog
+--------
+
+- 2.0.0 Added sourcemaps
+- 1.0.0 First release
+
 Developer
 ---------
 Irene Iaccio(@nuovecode) http://www.bitbull.it
