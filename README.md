@@ -65,11 +65,6 @@ Commands
         
         gulp build --Theme-name
 
-
-Nice to have
-------------
-- Compile different languages
-
 Licence
 -------
 [OSL - Open Software Licence 3.0](http://opensource.org/licenses/osl-3.0.php)
