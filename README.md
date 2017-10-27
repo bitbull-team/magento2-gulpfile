@@ -57,13 +57,17 @@ files: Files to compile
 Commands
 --------
  
-1. Task watch.       
+1. **Task watch**. Watches for less changes in vendor modules/themes and compile them in pub/static..       
         
         gulp watch --Theme-name
         
-1. Task clean and build.       
+2. **Task clean**. Clean old assets and run deployments commands.    
         
-        gulp build --Theme-name
+        gulp clean --Theme-name
+
+2. **Task clean cache**. Clean cache.   
+        
+        gulp clean-cache --Theme-name
 
 Licence
 -------
