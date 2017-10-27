@@ -76,6 +76,7 @@ Licence
 Changelog
 --------
 
+- 3.0.0 Added build and clean tasks
 - 2.0.0 Added sourcemaps
 - 1.0.0 First release
 
