@@ -60,7 +60,7 @@ gulp.task('clean', function() {
 
     var theme = themesConfig[options],
         createAlias  = 'bin/magento dev:source-theme:deploy --theme ' + theme.vendor + '/'+ theme.name + ' --locale ' + theme.locale,
-        staticAssetDeploy = 'php bin/magento setup:static-content:deploy -f',
+        staticAssetDeploy = 'bin/magento setup:static-content:deploy -f',
         staticFolder = 'pub/static/' + theme.area + '/' + theme.vendor + '/' + theme.name;
 
     var folderToClean = [
