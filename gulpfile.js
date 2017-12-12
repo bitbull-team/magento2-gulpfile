@@ -31,25 +31,27 @@ gulp.task('css', function() {
 
     var theme = themesConfig[options],
         filesToCompile = [];
+
     theme.files.forEach(function(file) {
         filesToCompile.push(
-            theme.dest + '/' + theme.locale + '/' + file + '.' + theme.lang
+            theme.dest + '/' + theme.locale[0] + '/' + file + '.' + theme.lang
         );
     });
 
-    var cssDestination = theme.dest + '/' + theme.locale + '/css';
+    theme.locale.forEach(function(locale) {
+        return gulp
+            .src(filesToCompile)
+            .pipe(sourcemap.init())
+            .pipe(less().on('error', function (error) {
+                gutil.log(chalk.red('Error compiling ' + locale + error.message));
+            }))
+            .pipe(sourcemap.write())
+            .pipe(gulp.dest(theme.dest + '/' + locale + '/css'))
+            .pipe(gutil.buffer(function() {
+                gutil.log(chalk.green('Successfully compiled ' + locale ));
+            }));
+    });
 
-    return gulp
-        .src(filesToCompile)
-        .pipe(sourcemap.init())
-        .pipe(less().on('error', function (error) {
-            gutil.log(chalk.red('Error compiling LESS: ' + error.message));
-        }))
-        .pipe(sourcemap.write())
-        .pipe(gulp.dest(cssDestination))
-        .pipe(gutil.buffer(function() {
-            gutil.log(chalk.green('Successfully compiled ' + theme.lang ));
-        }));
 });
 
 /**
@@ -59,8 +61,8 @@ gulp.task('css', function() {
 gulp.task('clean', function() {
 
     var theme = themesConfig[options],
-        createAlias  = 'bin/magento dev:source-theme:deploy --theme ' + theme.vendor + '/'+ theme.name + ' --locale ' + theme.locale,
-        staticAssetDeploy = 'bin/magento setup:static-content:deploy -f',
+        createAlias  = 'bin/magento dev:source-theme:deploy --theme ' + theme.vendor + '/'+ theme.name + ' --locale ' + theme.locale[0],
+        staticAssetDeploy = 'bin/magento setup:static-content:deploy',
         staticFolder = 'pub/static/' + theme.area + '/' + theme.vendor + '/' + theme.name;
 
     var folderToClean = [
@@ -95,8 +97,8 @@ gulp.task('clean-cache', function() {
     return gulp.src(folderToClean, {read: false})
         .pipe(clean())
         .pipe(gutil.buffer(function() {
-           gutil.log(chalk.green('Cache cleaned'));
-         }))
+            gutil.log(chalk.green('Cache cleaned'));
+        }))
 });
 
 

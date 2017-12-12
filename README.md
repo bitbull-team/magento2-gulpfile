@@ -27,7 +27,7 @@ Usage
             "vendor/<Vendor>/<Module-name>"
             ],
           "dest": "pub/static/frontend/<Vendor>/<Theme-name>",
-          "locale": [locale],
+          "locale": [locale,locale],
           "lang": "less",
           "area": "frontend",
           "vendor": <Vendor>,
@@ -49,7 +49,7 @@ area: area, one of (frontend|adminhtml|doc),
 
 name: theme name in format theme-name,
 
-locale: locale,
+locale: array of language to compile,
 
 files: Files to compile
 
