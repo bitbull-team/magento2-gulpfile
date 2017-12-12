@@ -4,78 +4,102 @@ var gulp  = require('gulp'),
     chalk = require('chalk'),
     clean = require('gulp-clean'),
     run   = require('gulp-run'),
-
+    sourcemap = require('gulp-sourcemaps'),
     themesConfig = require('./dev/tools/gulp/themes');
 
 var options = ((process.argv.slice(2))[1]).substring(2);
 
+/**
+ * Watch task
+ */
+
 gulp.task('watch',
     function() {
-
         var theme = themesConfig[options];
-
         theme.src.forEach(function(module) {
             gulp.watch([ module + '/**/*.less'], ['css']);
         });
 
-});
+    });
 
 
 /**
- * Less Cmpile Task.
+ * Less Compile Task.
  */
 
 gulp.task('css', function() {
 
-    /**
-     * Files to compile in pub/static.
-     */
-    var theme = themesConfig[options];
-    var filesToCompile = [];
+    var theme = themesConfig[options],
+        filesToCompile = [];
+
     theme.files.forEach(function(file) {
         filesToCompile.push(
-            theme.dest + '/' + theme.locale + '/' + file + '.' + theme.lang
+            theme.dest + '/' + theme.locale[0] + '/' + file + '.' + theme.lang
         );
     });
 
-    // TODO: compile different languages
-    var cssDestination = theme.dest + '/' + theme.locale + '/css';
+    theme.locale.forEach(function(locale) {
+        return gulp
+            .src(filesToCompile)
+            .pipe(sourcemap.init())
+            .pipe(less().on('error', function (error) {
+                gutil.log(chalk.red('Error compiling ' + locale + error.message));
+            }))
+            .pipe(sourcemap.write())
+            .pipe(gulp.dest(theme.dest + '/' + locale + '/css'))
+            .pipe(gutil.buffer(function() {
+                gutil.log(chalk.green('Successfully compiled ' + locale ));
+            }));
+    });
 
-    return gulp
-        .src(filesToCompile)
-        .pipe(less().on('error', function (error) {
-            gutil.log(chalk.red('Error compiling LESS: ' + error.message));
-        }))
-        .pipe(gulp.dest(cssDestination))
-        .pipe(gutil.buffer(function() {
-            gutil.log(chalk.green('Successfully compiled ' + theme.lang ));
-        }));
 });
 
 /**
  * Clean Task.
  */
 
-gulp.task('build', function() {
+gulp.task('clean', function() {
 
-    var theme = themesConfig[options];
-    var cmd = 'bin/magento dev:source-theme:deploy --theme ' + theme.vendor + '/'+ theme.name + ' --locale ' + theme.locale;
+    var theme = themesConfig[options],
+        createAlias  = 'bin/magento dev:source-theme:deploy --theme ' + theme.vendor + '/'+ theme.name + ' --locale ' + theme.locale[0],
+        staticAssetDeploy = 'bin/magento setup:static-content:deploy',
+        staticFolder = 'pub/static/' + theme.area + '/' + theme.vendor + '/' + theme.name;
+
     var folderToClean = [
-        './pub/static/' + theme.area + '/' + theme.name + '/*',
-        './var/view_preprocessed/*',
+        './' + staticFolder + '/*',
+        './var/view_preprocessed/*'
+    ];
+
+    return gulp.src(folderToClean, {read: false})
+        .pipe(clean())
+        .pipe(gutil.buffer(function() {
+            gutil.log(chalk.green('Clean ' + staticFolder));
+            gutil.log(chalk.green('Clean preprocessed files'));
+        }))
+        .pipe(run(createAlias))
+        .pipe(gutil.buffer(function() {
+            gutil.log(chalk.green('Asset static deployment is starting. Wait...'));
+        }))
+        .pipe(run(staticAssetDeploy))
+        .pipe(gutil.buffer(function() {
+            gutil.log(chalk.green('Finished! now run "gulp watch --[your theme name]"'));
+        }));
+
+});
+
+gulp.task('clean-cache', function() {
+
+    var folderToClean = [
+        './var/page_cache/*',
         './var/cache/*'
     ];
 
     return gulp.src(folderToClean, {read: false})
         .pipe(clean())
         .pipe(gutil.buffer(function() {
-            gutil.log(chalk.green('Clean..'));
+            gutil.log(chalk.green('Cache cleaned'));
         }))
-        .pipe(run(cmd))
-        .pipe(gutil.buffer(function() {
-            gutil.log(chalk.green('Successfully build ' + theme.name ));
-        }));
-
 });
+
 
 gulp.task('default', ['watch']);
